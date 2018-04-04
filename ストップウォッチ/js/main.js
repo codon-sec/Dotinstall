@@ -31,12 +31,24 @@
             countUp();
         },10);
     }
+    //start.className='btn';
+    //stop.className='btn inactive';
+    //reset.className='btn inactive';
+    function updateButtonState(startButtonState,stopButtonState,resetButtonState){
+        start.className=startButtonState?'btn':'btn inactive';
+        stop.className=stopButtonState?'btn':'btn inactive';
+        reset.className=resetButtonState?'btn':'btn inactive';
+    }
+
+    updateButtonState(true,false,false);
 
     start.addEventListener('click',function(){
         if(isRunning===true){
             return;
         }
         isRunning=true;
+        //start=false stop=true reset=false
+        updateButtonState(false,true,false);
         startTime=Date.now();
         countUp();
     });
@@ -45,6 +57,8 @@
             return;
         }
         isRunning=false;
+        ///start=true stop=false reset=true
+        updateButtonState(true,false,true);
         clearTimeout(timerId);
         timeToAdd+=Date.now()-startTime;
     });
@@ -52,6 +66,8 @@
         if(isRunning===true){
             return;
         }
+        //start=true stop=false reset=false
+        updateButtonState(true,false,false);
         elapsedTime=0;
         timeToAdd=0;
         updateTimerText();
